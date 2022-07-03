@@ -17,12 +17,12 @@ Given :
 We can input overs ball by ball with the runs scored on that ball (could be wide, no ball or a wicket as well).
 
 Additional requirements :
-1. total overs bowled
-2. Runs conceded
-3. Wickets taken
-4. maiden overs
-5. dot balls
-6. economy
+1. total overs bowled by bowler
+2. Runs conceded by bowler
+3. Wickets taken by bowler
+4. maiden overs by bowler
+5. dot balls by bowler
+6. economy by bowler
 7. Total team extras
 8. Batter strike rate
 

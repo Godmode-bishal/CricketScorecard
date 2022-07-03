@@ -5,15 +5,11 @@ import com.cricketscorecard.processor.CricketInputProcessor;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
-import java.io.IOException;
 import java.net.URL;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.util.stream.Stream;
 
 public class Invoker {
     public static void main(String[] args) {
-        URL url = Invoker.class.getResource("..//input1.txt");
+        URL url = Invoker.class.getResource("..//input.txt");
         File file = new File(url.getPath());
         //read file into stream, try-with-resources
         CricketInputProcessor processor = new CricketInputProcessor();
@@ -22,7 +18,7 @@ public class Invoker {
             processor.process(br);
         }
         catch(NullPointerException e) {
-            System.out.println("Invalid input. Check the input file input.txt");
+            System.out.println("Invalid input. Check the input file input.txt or did you not initialize the team players ?");
             e.printStackTrace();
         }
         catch(NumberFormatException e) {

@@ -8,11 +8,18 @@ public class CricketPlayer extends SportPlayer{
     private int numOfSixesHit;
     private int numOfExtrasConceded;
     private boolean isOut;
+    private double strikeRate;
 
     public CricketPlayer(String name) {
         super(name);
     }
 
+    public double calculateStrikeRate() {
+        if(ballsFaced!=0) {
+            return (runsScored / ballsFaced) * 100;
+        }
+        return 0;
+    }
     public void setIsOut(boolean isOut) {
         this.isOut = isOut;
     }

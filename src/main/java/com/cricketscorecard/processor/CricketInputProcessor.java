@@ -7,6 +7,9 @@ import com.cricketscorecard.player.CricketPlayer;
 import java.io.BufferedReader;
 import java.io.IOException;
 
+/**
+ * Cricket specific input parser
+ */
 public class CricketInputProcessor extends SportsInputProcessor {
     private int numPlayers ;
     private int numOvers ;
@@ -28,6 +31,7 @@ public class CricketInputProcessor extends SportsInputProcessor {
         }
 
         //Striker and non-striker according to batting order
+        checkIfPlayersAreAssigned(firstTeamCricketPlayers);
         CricketPlayer striker = firstTeamCricketPlayers[0];
         CricketPlayer nonStriker = firstTeamCricketPlayers[1];
 
@@ -37,6 +41,7 @@ public class CricketInputProcessor extends SportsInputProcessor {
         for(int i = 0; i<numPlayers; i++) {
             secondTeamCricketPlayers[i] = new CricketPlayer(br.readLine());
         }
+        checkIfPlayersAreAssigned(secondTeamCricketPlayers);
         striker = secondTeamCricketPlayers[0];
         nonStriker = secondTeamCricketPlayers[1];
         getScoreAndDisplayResult(br, striker, nonStriker, secondTeamCricketPlayers, secondTeam);
@@ -46,6 +51,27 @@ public class CricketInputProcessor extends SportsInputProcessor {
         match.findWinner();
     }
 
+    /**
+     * Check if players have been initialized before using them
+     * @param teamCricketPlayers
+     */
+    private void checkIfPlayersAreAssigned(CricketPlayer[] teamCricketPlayers) {
+        for(int i = 0; i<teamCricketPlayers.length; i++) {
+            if(teamCricketPlayers[i]==null) {
+                throw  new NullPointerException("Team players haven't been assigned.");
+            }
+        }
+    }
+
+    /**
+     * To parse input from file and calculate details
+     * @param br
+     * @param striker
+     * @param nonStriker
+     * @param teamPlayers
+     * @param team
+     * @throws IOException
+     */
     private void getScoreAndDisplayResult(BufferedReader br, CricketPlayer striker, CricketPlayer nonStriker, CricketPlayer[] teamPlayers, CricketTeam team) throws IOException {
         CricketPlayer placeHolder = null;
         int numPlayersOut  = 0;
@@ -63,7 +89,7 @@ public class CricketInputProcessor extends SportsInputProcessor {
                             striker = teamPlayers[numPlayersOut+1];
                         }
                         else {
-                            //TODO innigns over
+                            //innigns over
                             numBallsForIncompleteOver = j+1;
                             display(team, teamPlayers, i, numBallsForIncompleteOver);
                             return;
@@ -102,16 +128,25 @@ public class CricketInputProcessor extends SportsInputProcessor {
         }
     }
 
+    /**
+     * To display team result till now
+     * @param team
+     * @param teamPlayers
+     * @param over
+     * @param numBallsForIncompleteOver
+     */
     private void display(CricketTeam team, CricketPlayer[] teamPlayers, int over, int numBallsForIncompleteOver) {
-        System.out.println("\nScorecard for " + team.getTeamName() + "\nPlayer Name\t\tScore\t\t4s\t6s\tBalls");
+        System.out.println("\nScorecard for " + team.getTeamName() + "\nPlayer Name\t\tScore\t\t4s\t6s\tBalls\tStrikeRate");
         for(int j = 0; j<numPlayers; j++) {
             System.out.print(teamPlayers[j].getName() +
                     "\t\t\t\t" + teamPlayers[j].getRunsScored() +
                     "\t\t\t" + teamPlayers[j].getNumOfFoursHit() +
                     "\t" + teamPlayers[j].getNumOfSixesHit() +
-                    "\t" + teamPlayers[j].getBallsFaced() + "\n");
+                    "\t" + teamPlayers[j].getBallsFaced()
+                    +"\t"+ teamPlayers[j].calculateStrikeRate() + "\n");
         }
         System.out.println("Total: " + team.getScore() + "/" + team.getNumWicketsDown());
+        System.out.println("Extras: " + team.getExtras());
         over = numBallsForIncompleteOver!=0?over-1:over;
         System.out.print("Overs:" +(over+1) + "." + numBallsForIncompleteOver + "\n");
     }
