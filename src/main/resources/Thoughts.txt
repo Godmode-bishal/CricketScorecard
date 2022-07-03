@@ -1,0 +1,44 @@
+Requirements :
+1. Score of team
+2. Score of each player
+3. Number of balls faced
+4. Number of 4s
+5. Number of 6s
+6. Total wickets
+7. Extras
+8. Which team won
+
+
+Given :
+1. Number of players in each team
+2. Number of overs
+3. Batting order
+
+We can input overs ball by ball with the runs scored on that ball (could be wide, no ball or a wicket as well).
+
+Additional requirements :
+1. total overs bowled
+2. Runs conceded
+3. Wickets taken
+4. maiden overs
+5. dot balls
+6. economy
+7. Total team extras
+8. Batter strike rate
+
+TODO :
+1. Code
+2. Test
+    a. Overs done, wickets remain : done
+    b. tie : done
+    c. wickets done, overs remain : done
+    d. 5 nunm players, but batting order of 2 : done
+    e. 2 overs, but all balls not given : done. NFE
+    f. empty lines : done . NFE. For dot balls, enter 0
+    g. dot balls : done
+    h. balls after allocated number of overs is over : done (extra numbers are ignored)
+3. Junit Test cases
+4. Comments
+5. Documentation
+6. Extra features, then (1) to (5)
+7. For behavioural testing, can use Cucumber
